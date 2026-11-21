@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twin Lanterns — Spot the Difference</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #0b0f1e; color: #f2ead8;
+    font-family: Georgia, 'Times New Roman', serif;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh; padding: 10px 0 14px;
+  }
+  header {
+    width: 1280px; max-width: 98vw; display: flex; align-items: baseline;
+    gap: 18px; padding: 2px 6px 8px;
+  }
+  header .brand { font-size: 26px; font-weight: bold; letter-spacing: 1px; color: #ffd76e; }
+  header .brand small { font-size: 13px; color: #b9c0d8; letter-spacing: 0; font-weight: normal; }
+  #scene-name { font-size: 15px; color: #b9c0d8; }
+  #counter { font-size: 19px; font-weight: bold; margin-left: auto; }
+  #timer {
+    font-size: 22px; font-weight: bold; font-family: 'Courier New', monospace;
+    background: #1a2140; border: 1px solid #3a4a7a; border-radius: 8px; padding: 2px 12px;
+  }
+  #timer.urgent { color: #ff7a6e; border-color: #ff7a6e; }
+  #score { font-size: 17px; font-family: 'Courier New', monospace; }
+  main { position: relative; width: 1280px; max-width: 98vw; }
+  canvas { display: block; width: 100%; height: auto; border-radius: 10px; }
+  #overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    background: rgba(8, 10, 24, 0.55); border-radius: 10px; padding: 24px;
+  }
+  #overlay.hidden { display: none; }
+  #overlay h1 { margin: 0 0 4px; font-size: 44px; color: #ffd76e; }
+  #overlay .tagline { margin: 0 0 14px; font-size: 20px; font-style: italic; color: #e8e2d2; }
+  #overlay p { max-width: 560px; font-size: 16px; line-height: 1.5; margin: 6px 0; }
+  #overlay ul { text-align: left; font-size: 15px; line-height: 1.6; margin: 8px 0 16px; }
+  #overlay .stats { font-size: 19px; font-family: 'Courier New', monospace; }
+  #overlay .fine { font-size: 13px; color: #b9c0d8; }
+  button {
+    font-family: Georgia, serif; font-size: 18px; cursor: pointer;
+    background: #d64541; color: #fff; border: none; border-radius: 8px;
+    padding: 12px 26px; margin: 6px;
+  }
+  button:hover { background: #e85a54; }
+  button.ghost { background: transparent; border: 1px solid #b9c0d8; color: #e8e2d2; }
+  button:disabled { opacity: 0.6; cursor: default; }
+  footer {
+    width: 1280px; max-width: 98vw; display: flex; gap: 10px; align-items: center;
+    padding-top: 10px;
+  }
+  footer button { font-size: 15px; padding: 8px 16px; margin: 0; background: #2a3160; }
+  footer button:hover { background: #3a4480; }
+  #hints-left { font-size: 15px; color: #ffd76e; margin-left: 6px; }
+  #message { margin-left: auto; font-size: 15px; font-style: italic; color: #9dff8a; }
+  #message.hidden { visibility: hidden; }
+  .keys { font-size: 13px; color: #b9c0d8; margin-left: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">Twin Lanterns <small>· Spot the Difference</small></span>
+  <span id="scene-name">Set 1 of 3 · Harbour at Dawn</span>
+  <span id="counter">Found 0 of 7 — 7 to go</span>
+  <span id="timer">03:00</span>
+  <span id="score">Score 0</span>
+</header>
+<main>
+  <canvas id="game-canvas" width="1280" height="608"></canvas>
+  <div id="overlay" class="hidden"></div>
+</main>
+<footer>
+  <button id="hint-btn" type="button">Hint (H)</button>
+  <span id="hints-left">Hints 3 (H)</span>
+  <button id="restart-btn-top" type="button">Restart set (R)</button>
+  <button id="mute-btn" type="button">Sound: on (M)</button>
+  <span class="keys">Click a difference · Arrow keys + Enter work too</span>
+  <span id="message" class="hidden"></span>
+</footer>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
